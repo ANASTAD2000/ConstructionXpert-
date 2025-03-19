@@ -23,15 +23,15 @@ public class AddProjectServlet extends HttpServlet {
         // Get data from form
         String nom = request.getParameter("nom");
         String description = request.getParameter("description");
-        String startDateStr = request.getParameter("start_date");
-        String endDateStr = request.getParameter("end_date");
+        String dateDebutStr = request.getParameter("dateDebut");
+        String dateFinStr = request.getParameter("dateFin");
         String budgetStr = request.getParameter("budget");
 
         // Validate input
 
         if (nom == null || nom.isEmpty() ||
                 description == null || description.isEmpty() ||
-                startDateStr == null || endDateStr == null ||
+                dateDebutStr == null || dateFinStr == null ||
                 budgetStr == null || budgetStr.isEmpty()) {
             request.setAttribute("error", "All fields are required!");
             request.getRequestDispatcher("addProject.jsp").forward(request, response);
@@ -40,16 +40,16 @@ public class AddProjectServlet extends HttpServlet {
 
         try {
             // Convert data to correct types
-            Date startDate = Date.valueOf(startDateStr);
-            Date endDate = Date.valueOf(endDateStr);
+            Date dateDebut = Date.valueOf(dateDebutStr);
+            Date dateFin = Date.valueOf(dateFinStr);
             BigDecimal budget = new BigDecimal(budgetStr);
 
             // Create Project object
             Project project = new Project();
             project.setName(nom);
             project.setDescription(description);
-            project.setDateDebut(startDate);
-            project.setDateFin(endDate);
+            project.setDateDebut(dateDebut);
+            project.setDateFin(dateFin);
             project.setBudget(budget);
 
             // Call DAO to add project

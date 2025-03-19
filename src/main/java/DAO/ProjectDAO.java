@@ -10,7 +10,7 @@ public class ProjectDAO {
 
     public Project create(Project project) throws SQLException {
 
-        String sql = "INSERT INTO projects (nom, description, dateDebut, dateFin, budget) VALUES (?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO projects (nom, description, date_debut, date_fin, budget) VALUES (?, ?, ?, ?, ?)";
 
 
         Connection conn = null;

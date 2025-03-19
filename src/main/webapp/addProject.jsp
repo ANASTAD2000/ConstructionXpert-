@@ -12,16 +12,16 @@
 
 <form action="addProject" method="post">
     <label>Project Name:</label>
-    <input type="text" name="name" required>
+    <input type="text" name="nom" required>
 
     <label>Description:</label>
     <textarea name="description" required></textarea>
 
     <label>Start Date:</label>
-    <input type="date" name="start_date" required>
+    <input type="date" name="dateDebut" required>
 
     <label>End Date:</label>
-    <input type="date" name="end_date" required>
+    <input type="date" name="dateFin" required>
 
     <label>Budget:</label>
     <input type="number" name="budget" step="0.01" required>
