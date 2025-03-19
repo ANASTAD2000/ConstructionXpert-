@@ -1,6 +1,5 @@
 package Models;
 
-import javax.swing.*;
 import java.math.BigDecimal;
 import java.sql.Date;
 import java.sql.Timestamp;
@@ -9,13 +8,12 @@ import java.util.List;
 
 public class Project {
     private int projectId;
-    private String name;
+    private String nom;
     private String description;
-    private Date startDate;
-    private Date endDate;
+    private Date dateDebut;
+    private Date dateFin;
     private BigDecimal budget;
-    private Timestamp createdAt;
-    private Timestamp updatedAt;
+
     private List<Task> tasks;
 
 
@@ -25,10 +23,10 @@ public class Project {
     }
 
     public Project(String name, String description, Date startDate, Date endDate, BigDecimal budget) {
-        this.name = name;
+        this.nom = name;
         this.description = description;
-        this.startDate = startDate;
-        this.endDate = endDate;
+        this.dateDebut = startDate;
+        this.dateFin = endDate;
         this.budget = budget;
         this.tasks = new ArrayList<>();
     }
@@ -43,11 +41,11 @@ public class Project {
     }
 
     public String getName() {
-        return name;
+        return nom;
     }
 
     public void setName(String name) {
-        this.name = name;
+        this.nom = name;
     }
 
     public String getDescription() {
@@ -58,20 +56,20 @@ public class Project {
         this.description = description;
     }
 
-    public Date getStartDate() {
-        return startDate;
+    public Date getDateDebut() {
+        return dateDebut;
     }
 
-    public void setStartDate(Date startDate) {
-        this.startDate = startDate;
+    public void setDateDebut(Date dateDebut) {
+        this.dateDebut = dateDebut;
     }
 
-    public Date getEndDate() {
-        return endDate;
+    public Date getDateFin() {
+        return dateFin;
     }
 
-    public void setEndDate(Date endDate) {
-        this.endDate = endDate;
+    public void setDateFin(Date dateFin) {
+        this.dateFin = dateFin;
     }
 
     public BigDecimal getBudget() {
@@ -82,21 +80,7 @@ public class Project {
         this.budget = budget;
     }
 
-    public Timestamp getCreatedAt() {
-        return createdAt;
-    }
 
-    public void setCreatedAt(Timestamp createdAt) {
-        this.createdAt = createdAt;
-    }
-
-    public Timestamp getUpdatedAt() {
-        return updatedAt;
-    }
-
-    public void setUpdatedAt(Timestamp updatedAt) {
-        this.updatedAt = updatedAt;
-    }
 
     public List<Task> getTasks() {
         return tasks;
@@ -112,7 +96,7 @@ public class Project {
 
     @Override
     public String toString() {
-        return "Project [id=" + projectId + ", name=" + name + ", startDate=" + startDate +
-                ", endDate=" + endDate + ", budget=" + budget + "]";
+        return "Project [id=" + projectId + ", name=" + nom + ", dateDebut=" + dateDebut +
+                ", dateFin=" + dateFin + ", budget=" + budget + "]";
     }
 }
