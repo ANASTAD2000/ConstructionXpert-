@@ -5,6 +5,12 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 
 import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
+
+import static com.mysql.cj.conf.PropertyKey.PASSWORD;
+import static com.mysql.cj.conf.PropertyKey.USER;
+import static jakarta.servlet.SessionTrackingMode.URL;
 
 public class ProjectDAO {
 
@@ -47,7 +53,44 @@ public class ProjectDAO {
             if (conn != null) conn.close();
         }
     }
+
+    public List<Project> getAllProjects() {
+        List<Project> projects = new ArrayList<>();
+        String query = "SELECT * FROM projects";
+        try (Connection conn = DatabaseConnection.getConnection();
+
+             PreparedStatement stmt = conn.prepareStatement(query);
+             ResultSet rs = stmt.executeQuery()) {
+
+            while (rs.next()) {
+                Project project = new Project(
+                        rs.getInt("id"),
+                        rs.getString("nom"),
+                        rs.getString("description"),
+                        rs.getDate("dateDebut"),
+                        rs.getDate("dateFin"),
+                        rs.getDouble("budget")
+                );
+                projects.add(project);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return projects;
+    }
+
+
 }
+
+
+
+
+
+
+
+
+
+
 
 
 

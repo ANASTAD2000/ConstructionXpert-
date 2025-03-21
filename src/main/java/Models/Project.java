@@ -2,7 +2,6 @@ package Models;
 
 import java.math.BigDecimal;
 import java.sql.Date;
-import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -18,7 +17,7 @@ public class Project {
 
 
     // Constructors
-    public Project() {
+    public Project(int id, String nom, String description, Date dateDebut, Date dateFin, double budget) {
         tasks = new ArrayList<>();
     }
 
@@ -29,6 +28,10 @@ public class Project {
         this.dateFin = endDate;
         this.budget = budget;
         this.tasks = new ArrayList<>();
+    }
+
+    public Project() {
+
     }
 
     // Getters and Setters

@@ -57,7 +57,7 @@ public class AddProjectServlet extends HttpServlet {
             projectDAO.create(project);
 
             // Redirect to listProjects.jsp
-            response.sendRedirect("listProjects.jsp");
+            response.sendRedirect("displayProject.jsp");
 
         } catch (IllegalArgumentException | SQLException e) {
             request.setAttribute("error", "Data entry error!");
