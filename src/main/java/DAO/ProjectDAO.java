@@ -67,8 +67,8 @@ public class ProjectDAO {
                         rs.getInt("id"),
                         rs.getString("nom"),
                         rs.getString("description"),
-                        rs.getDate("dateDebut"),
-                        rs.getDate("dateFin"),
+                        rs.getDate("date_Debut"),
+                        rs.getDate("date_Fin"),
                         rs.getDouble("budget")
                 );
                 projects.add(project);
