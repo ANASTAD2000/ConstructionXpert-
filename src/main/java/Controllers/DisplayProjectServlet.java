@@ -3,6 +3,7 @@ package Controllers;
 //public class DisplayProjectServlet {
 //}
 
+import DAO.DatabaseConnection;
 import DAO.ProjectDAO;
 import Models.Project;
 import jakarta.servlet.ServletException;
@@ -11,6 +12,7 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.sql.SQLException;
 import java.util.List;
 
 @WebServlet("/displayProjects")
@@ -19,13 +21,16 @@ public class DisplayProjectServlet extends HttpServlet {
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        // Retrieve the list of projects from the database
-        List<Project> projects = projectDAO.getAllProjects();
 
-        // Set the projects list as a request attribute
+        List<Project> projects = null;
+        try {
+            projects = projectDAO.getAllProjects(DatabaseConnection.getConnection());
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+
         request.setAttribute("projects", projects);
 
-        // Forward the request to displayProjects.jsp
         request.getRequestDispatcher("displayProjects.jsp").forward(request, response);
     }
 }

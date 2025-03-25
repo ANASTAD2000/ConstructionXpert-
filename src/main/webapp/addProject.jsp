@@ -384,7 +384,7 @@
 
                 <div class="d-flex justify-content-between">
                     <button type="submit" class="btn btn-primary">Enregistrer le projet</button>
-                    <a href="displayProjects.jsp" class="btn btn-outline-secondary">Voir les projets</a>
+                    <a href="displayProjects" class="btn btn-outline-secondary">Voir les projets</a>
                 </div>
             </form>
         </div>

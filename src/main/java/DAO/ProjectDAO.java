@@ -1,16 +1,18 @@
 package DAO;
 import Models.Project;
+import jakarta.servlet.ServletException;
+import jakarta.servlet.annotation.WebServlet;
+import jakarta.servlet.http.HttpServlet;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 
+import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
-
-import static com.mysql.cj.conf.PropertyKey.PASSWORD;
-import static com.mysql.cj.conf.PropertyKey.USER;
-import static jakarta.servlet.SessionTrackingMode.URL;
 
 public class ProjectDAO {
 
@@ -47,21 +49,16 @@ public class ProjectDAO {
             return project;
         } catch (SQLException e) {
             throw new RuntimeException(e);
-        } finally {
-            // Closing resources
-            if (stmt != null) stmt.close();
-            if (conn != null) conn.close();
         }
     }
 
-    public List<Project> getAllProjects() {
+    public List<Project> getAllProjects(Connection connn) throws SQLException {
         List<Project> projects = new ArrayList<>();
         String query = "SELECT * FROM projects";
-        try (Connection conn = DatabaseConnection.getConnection();
-
-             PreparedStatement stmt = conn.prepareStatement(query);
-             ResultSet rs = stmt.executeQuery()) {
-
+        try (
+                PreparedStatement stmt = connn.prepareStatement(query);
+                ResultSet rs = stmt.executeQuery()
+        ) {
             while (rs.next()) {
                 Project project = new Project(
                         rs.getInt("id"),
@@ -73,10 +70,62 @@ public class ProjectDAO {
                 );
                 projects.add(project);
             }
+            System.out.println("Projects retrieved: " + projects.size()); // ✅ تحقق من عدد المشاريع المسترجعة
+
         } catch (SQLException e) {
             e.printStackTrace();
         }
         return projects;
+    }
+
+    public boolean suprimer(int projectId) {
+        Connection conn = null;
+        PreparedStatement stmt = null;
+        boolean success = false;
+
+        try {
+            // Get a connection
+            DatabaseMetaData DataSource = null;
+            conn = DataSource.getConnection();  // Use your connection method or pool
+            if (conn == null || conn.isClosed()) {
+                throw new SQLException("Connection is closed.");
+            }
+
+            // SQL DELETE statement
+            String sql = "DELETE FROM projects WHERE id = ?";
+
+            // Prepare statement
+            stmt = conn.prepareStatement(sql);
+            stmt.setInt(1, projectId);  // Set the project ID in the query
+
+            // Execute the update and check if one row was deleted
+            int rowsAffected = stmt.executeUpdate();
+
+            if (rowsAffected > 0) {
+                success = true;  // The project was successfully deleted
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            // Close resources
+            if (stmt != null) {
+                try {
+                    stmt.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+            if (conn != null) {
+                try {
+                    conn.close();  // Close connection after operation
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+
+        return success;
     }
 
 

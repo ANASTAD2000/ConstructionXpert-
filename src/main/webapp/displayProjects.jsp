@@ -51,7 +51,7 @@
                     <p><strong>Date fin:</strong> <%= project.getDateFin() %></p>
                     <p><strong>Budget:</strong> <%= project.getBudget() %></p>
                     <a href="editProject.jsp?id=<%= project.getProjectId() %>" class="btn btn-primary">Modifier</a>
-                    <a href="deleteProject.jsp?id=<%= project.getProjectId() %>" class="btn btn-danger">Supprimer</a>
+                    <a href="di?id=<%= project.getProjectId() %>" class="btn btn-danger">Supprimer</a>
                 </div>
             </div>
         </div>

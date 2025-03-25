@@ -15,6 +15,8 @@ import java.sql.Date;
 import java.sql.SQLException;
 
 @WebServlet("/addProject") // Servlet Mapping
+
+
 public class AddProjectServlet extends HttpServlet {
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
@@ -57,7 +59,7 @@ public class AddProjectServlet extends HttpServlet {
             projectDAO.create(project);
 
             // Redirect to listProjects.jsp
-            response.sendRedirect("displayProject.jsp");
+            response.sendRedirect("displayProjects");
 
         } catch (IllegalArgumentException | SQLException e) {
             request.setAttribute("error", "Data entry error!");
